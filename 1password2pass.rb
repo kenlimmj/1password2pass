@@ -18,7 +18,7 @@ FIELD_USERNAME = 'username'.freeze
 # The command to insert a new pass entry.
 PASS_INSERT_CMD = 'gopass insert'.freeze
 
-# THe default directory for the password store.
+# The default directory for the password store.
 PASS_STORE_DIR = '~/.password-store'.freeze
 
 ##
@@ -36,6 +36,7 @@ end
 # Default options.
 options = OpenStruct.new
 options.force = false
+options.parallel = false
 
 optparse = OptionParser.new do |opts|
   opts.banner = "Usage: #{opts.program_name}.rb [options] filename"
@@ -43,6 +44,10 @@ optparse = OptionParser.new do |opts|
   opts.on_tail('-h', '--help', 'Display this screen') do
     puts opts
     exit
+  end
+
+  opts.on('-p', '--parallel', 'Run in multiple threads.') do
+    options.parallel = true
   end
 
   opts.on('-f', '--force', 'Overwrite existing passwords') do
